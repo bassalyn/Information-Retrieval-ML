@@ -1,0 +1,41 @@
+Indexing 
+
+Basic Indexing
+
+1. In elasticcommands.txt document 
+
+2. We might break an index into shards to horizontally split and scale the content volume and to distribute and parallelize operations across the shards to increase performance.
+
+3. We might replicate an index to provide high availability in case a shard/node fails, and to scale out search volume/throughput since searches can be executed on all replicas in parallel.
+
+4. Your cluster health is yellow if all data is available but some replicas are not yet allocated.
+
+Indexing Reddit
+
+1. We ensure our Elasticsearch instance has no indices in it using the following command:
+ curl -X GET "localhost:9200/_cat/indices?v&pretty".
+
+2. The name of the index created by the command given was comments.
+
+3. The index is 32mb in size from pri.store.size.
+
+Search
+
+1. The three queries below return different sets of documents, you can observe this clearly via inspection of the results or noticing the different amount of returned documents.
+
+2. The maximum score for query 1 was 10.503806, for query 2 was 11.629242, for query 3 was  18.84402
+
+3. Thus we may deduce that the default stemming procedure used by elasticsearch does not remove the s in words where the preceding letter is t, in fact it is likely to not remove s if the preceding letter is a consonant similar to t.
+
+4. A query to check whether or not Elasticsearch removes a stop word is curl -XGET 'localhost:9200/_search?pretty' -H 'Content-Type: application/json' -d'
+> { "query": { "match" : { "body" : { "query" : "stopword"} } } } ' where stop word is the stop word we want to see if it is removed, in this case if the result is null we know that elasticsearch likely removes the stop word as required
+
+Analyzers 
+
+1. We use the following code to delete all the indices in the Elasticsearch instance :
+ curl -X DELETE "localhost:9200/comments?pretty&pretty"
+
+2.1 We observe that after rerunning the three queries from earlier, we notice that the results for query 1 is similar but larger as more results, however there are no results for queries 2 and 3.
+This is because the stemmer will remove the s from the end of cats. Thus there will be no occurrences of cats but all instances of cats will be stemmed to cats, thus 2 and 3 will be empty as since 2 is empty 3 is empty, but in all cases the results of 2 will go to query 1, which is explained by the new stemmer as required, so we are done.
+
+2.2 We observe that the size of the index is smaller than before compared to previous runs. That is because the stemmer removes parts of the documents. Thus the space to store all of the documents is smaller, thus the index is smaller.

@@ -1,0 +1,219 @@
+The Lucene Demo
+
+1. (base) Bradleys-MBP:4417a1 bradley$ java MySearchFiles <testcases.txt
+Enter query: 
+Searching for: his fiery sword
+5 total matching documents
+1. documents/RJ3.txt
+2. documents/RJ5.txt
+3. documents/RJ4.txt
+4. documents/RJ9.txt
+5. documents/RJ6.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: alas o love
+5 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ8.txt
+3. documents/RJ7.txt
+4. documents/RJ1.txt
+5. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: and
+8 total matching documents
+1. documents/RJ3.txt
+2. documents/RJ10.txt
+3. documents/RJ5.txt
+4. documents/RJ2.txt
+5. documents/RJ4.txt
+6. documents/RJ8.txt
+7. documents/RJ7.txt
+8. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: reckon
+0 total matching documents
+Enter query: 
+Searching for: q
+0 total matching documents
+Enter query: 
+Searching for: love
+4 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ1.txt
+4. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: fair
+3 total matching documents
+1. documents/RJ9.txt
+2. documents/RJ10.txt
+3. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+
+2. The Lucene 8.7.0 demo does not use stop words, we cannot deduce this from the above results as there could be a stop word not in the queries that the demo removes. However examining the code shows that it does not use stop words.
+
+3. The Lucene 8.7.0 demo does use stemming of making all lower case, but does not modify the words akin to a porter or similar stemmer. This can be observed via the transformation the queries to lower case, and through examining the code.
+
+4. The similarity metric used by the Lucene 8.7.0 demo to retrieve documents is Okapi BM25 by default. We can deduce this is the case by examining the results for each value and then manually comparing each entry to determine if this would be determined as similar with the Okapi BM25, however if we just have the query results we cannot determine this without referencing the documents.
+
+Stopping
+
+The results of the queries are the following:
+
+ java MySearchFiles < testcases.txt
+Enter query: 
+Searching for: fiery sword
+1 total matching documents
+1. documents/RJ3.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: alas love
+4 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ1.txt
+4. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: and
+8 total matching documents
+1. documents/RJ3.txt
+2. documents/RJ10.txt
+3. documents/RJ5.txt
+4. documents/RJ2.txt
+5. documents/RJ4.txt
+6. documents/RJ8.txt
+7. documents/RJ7.txt
+8. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: reckon
+0 total matching documents
+Enter query: 
+Searching for: q
+0 total matching documents
+Enter query: 
+Searching for: love
+4 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ1.txt
+4. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: fair
+3 total matching documents
+1. documents/RJ9.txt
+2. documents/RJ10.txt
+3. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+
+Stemming
+
+ java MySearchFiles < testcases.txt
+Enter query: 
+Searching for: fieri sword
+1 total matching documents
+1. documents/RJ3.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: ala love
+5 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ8.txt
+4. documents/RJ1.txt
+5. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: and
+8 total matching documents
+1. documents/RJ3.txt
+2. documents/RJ10.txt
+3. documents/RJ5.txt
+4. documents/RJ2.txt
+5. documents/RJ4.txt
+6. documents/RJ8.txt
+7. documents/RJ7.txt
+8. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: reckon
+1 total matching documents
+1. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: love
+5 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ8.txt
+4. documents/RJ1.txt
+5. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: fair
+3 total matching documents
+1. documents/RJ9.txt
+2. documents/RJ10.txt
+3. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+
+Similarity
+
+ java MySearchFiles < testcases.txt
+Enter query: 
+Searching for: fieri sword
+1 total matching documents
+1. documents/RJ3.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: ala love
+5 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ8.txt
+4. documents/RJ1.txt
+5. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: and
+8 total matching documents
+1. documents/RJ3.txt
+2. documents/RJ5.txt
+3. documents/RJ10.txt
+4. documents/RJ2.txt
+5. documents/RJ4.txt
+6. documents/RJ8.txt
+7. documents/RJ7.txt
+8. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: reckon
+1 total matching documents
+1. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: love
+5 total matching documents
+1. documents/RJ6.txt
+2. documents/RJ7.txt
+3. documents/RJ8.txt
+4. documents/RJ1.txt
+5. documents/RJ10.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+Searching for: fair
+3 total matching documents
+1. documents/RJ9.txt
+2. documents/RJ10.txt
+3. documents/RJ1.txt
+Press (q)uit or enter number to jump to a page.
+Enter query: 
+

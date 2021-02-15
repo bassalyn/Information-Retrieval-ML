@@ -1,0 +1,105 @@
+1.
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/_cat/health?v&pretty"
+epoch      timestamp cluster            status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
+1611247633 16:47:13  elasticsearch_brew green           1         1      0   0    0    0        0             0                  -                100.0%
+
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/_cat/nodes?v&pretty"
+ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+127.0.0.1           15          99  10    1.58                  dimr      *      Bradleys-MBP.lan
+
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/_cat/indices?v&pretty"
+health status index uuid pri rep docs.count docs.deleted store.size pri.store.size
+
+(base) Bradleys-MBP:~ bradley$ curl -X PUT "localhost:9200/customer?pretty&pretty"
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "customer"
+}
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/_cat/indices?v&pretty"
+health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   customer VnuXSwE1Rkm77itqylAyGQ   1   1          0            0       208b           208b
+
+(base) Bradleys-MBP:~ bradley$ curl -X PUT "localhost:9200/customer/_doc/1?pretty&pretty" -H 'Content-Type: application/json' -d'
+> {
+>   "name": "John Doe"
+> }
+> '
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/customer/_doc/1?pretty&pretty"
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "name" : "John Doe"
+  }
+}
+
+(base) Bradleys-MBP:~ bradley$ curl -X DELETE "localhost:9200/customer?pretty&pretty"
+{
+  "acknowledged" : true
+}
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/_cat/indices?v&pretty"
+health status index uuid pri rep docs.count docs.deleted store.size pri.store.size
+
+(base) Bradleys-MBP:~ bradley$ curl -X PUT "localhost:9200/customer?pretty"
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "customer"
+}
+(base) Bradleys-MBP:~ bradley$ curl -X PUT "localhost:9200/customer/_doc/1?pretty" -H 'Content-Type: application/json' -d'
+> {
+>   "name": "John Doe"
+> }
+> '
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "result" : "created",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 0,
+  "_primary_term" : 1
+}
+(base) Bradleys-MBP:~ bradley$ curl -X GET "localhost:9200/customer/_doc/1?pretty"
+{
+  "_index" : "customer",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "name" : "John Doe"
+  }
+}
+(base) Bradleys-MBP:~ bradley$ curl -X DELETE "localhost:9200/customer?pretty"
+{
+  "acknowledged" : true
+}
